@@ -10,53 +10,53 @@ const Register = () => {
 
   const register = async (e) => {
     e.preventDefault();
-
     try {
       await axios.post("http://localhost:5000/register", {
         name,
         email,
         password
       });
-
       alert("Registered successfully");
       navigate("/login");
-    } catch (err) {
-      alert("Registration failed",err);
+    } catch {
+      alert("Registration failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form onSubmit={register} className="border p-6 w-80">
-        <h2 className="text-xl mb-4">Register</h2>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center">
+      <form onSubmit={register} className="bg-white p-8 rounded-xl shadow-md w-96">
+
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Register
+        </h2>
 
         <input
-          type="text"
+          className="border p-3 rounded w-full mb-4"
           placeholder="Name"
-          className="border p-2 w-full mb-3"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
-          type="email"
+          className="border p-3 rounded w-full mb-4"
           placeholder="Email"
-          className="border p-2 w-full mb-3"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
+          className="border p-3 rounded w-full mb-4"
           type="password"
           placeholder="Password"
-          className="border p-2 w-full mb-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-green-500 text-white w-full p-2">
+        <button className="bg-indigo-500 text-white w-full py-3 rounded-lg hover:bg-indigo-600">
           Register
         </button>
+
       </form>
     </div>
   );

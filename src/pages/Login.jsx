@@ -9,48 +9,56 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.post("http://localhost:5000/login", {
         email,
         password
       });
-
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
-    } catch (err) {
-      alert("Login failed",err);
+    } catch {
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form onSubmit={login} className="border p-6 w-80">
-        <h2 className="text-xl mb-4">Login</h2>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center">
+      <form onSubmit={login} className="bg-white p-8 rounded-xl shadow-md w-96">
+
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Login
+        </h2>
 
         <input
+          className="border p-3 rounded w-full mb-4"
           type="email"
           placeholder="Email"
-          className="border p-2 w-full mb-3"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
+          className="border p-3 rounded w-full mb-4"
           type="password"
           placeholder="Password"
-          className="border p-2 w-full mb-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-blue-500 text-white w-full p-2">
+        <button className="bg-indigo-500 text-white w-full py-3 rounded-lg hover:bg-indigo-600">
           Login
         </button>
 
-        <p className="mt-3 text-sm">
-          New user? <a href="/register" className="text-blue-500">Register</a>
+        <p className="text-sm text-center mt-4">
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            className="text-indigo-500 cursor-pointer"
+          >
+            Register
+          </span>
         </p>
+
       </form>
     </div>
   );

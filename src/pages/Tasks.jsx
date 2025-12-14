@@ -7,17 +7,13 @@ const Tasks = () => {
   const [status, setStatus] = useState("");
 
   const getTasks = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/tasks", {
-        params: { search, status },
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
-        }
-      });
-      setTasks(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await axios.get("http://localhost:5000/tasks", {
+      params: { search, status },
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
+    });
+    setTasks(res.data);
   };
 
   useEffect(() => {
@@ -25,18 +21,18 @@ const Tasks = () => {
   }, [search, status]);
 
   return (
-    <div className="p-5">
+    <div className="p-6 max-w-4xl mx-auto">
 
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-4 mb-6">
         <input
-          placeholder="Search task"
-          className="border p-2 w-full"
+          className="border p-3 rounded w-full"
+          placeholder="Search task..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <select
-          className="border p-2"
+          className="border p-3 rounded"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -46,16 +42,18 @@ const Tasks = () => {
         </select>
       </div>
 
-      {tasks.length === 0 ? (
-        <p>No tasks found</p>
-      ) : (
-        tasks.map((task) => (
-          <div key={task._id} className="border p-3 mb-2">
-            <h3 className="font-bold">{task.title}</h3>
-            <p>Status: {task.status}</p>
-          </div>
-        ))
-      )}
+      {tasks.map((task) => (
+        <div
+          key={task._id}
+          className="bg-white p-4 rounded-lg shadow mb-3"
+        >
+          <h3 className="font-semibold text-lg">{task.title}</h3>
+          <p className="text-sm text-gray-500">
+            Status: {task.status}
+          </p>
+        </div>
+      ))}
+
     </div>
   );
 };
